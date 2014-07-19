@@ -8,6 +8,7 @@ flintApp.Router.map(function() {
   this.route('credits', {path: '/thanks'});
   this.resource('products', {path: '/items'}, function(){
     this.resource('product', {path: '/:product_id'});
+    this.route('onsale');
   });
   this.resource('contacts', function(){
     this.resource('contact', {path: '/:contact_id'});
@@ -77,6 +78,12 @@ flintApp.ProductsIndexRoute = Ember.Route.extend({
 flintApp.ProductRoute = Ember.Route.extend({
   model: function(params) {
     return this.store.find('product', params.product_id);
+  }
+});
+
+flintApp.ProductsOnsaleRoute = Ember.Route.extend({
+  model: function() {
+    return this.modelFor('products').filterBy('isOnSale');
   }
 });
 

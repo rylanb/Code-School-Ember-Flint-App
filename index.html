@@ -48,20 +48,25 @@
           Browse All {{productCount}} Items &raquo;</p>
         {{/link-to}}
       </div>
-      {{#each onSale}}
-        <div class='col-sm-4'>
-          <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5' />
-          <div class='col-sm-7'>
-            <h2>{{title}}</h2>
-            <p class="product-description">{{description}}</p>
-            <p>
-              {{#link-to 'product' this class='btn btn-success'}}
-                Buy for ${{price}}
-              {{/link-to}}
-            </p>
+      <div class='row'>
+        {{#each onSale}}
+          <div class='col-sm-4'>
+            <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5' />
+            <div class='col-sm-7'>
+              <h2>{{title}}</h2>
+              <span class="label label-warning">
+                {{#link-to 'products.onsale'}}On Sale{{/link-to}}
+              </span>
+              <p class="product-description">{{description}}</p>
+              <p>
+                {{#link-to 'product' this class='btn btn-success'}}
+                  Buy for ${{price}}
+                {{/link-to}}
+              </p>
+            </div>
           </div>
-        </div>
-      {{/each}}
+        {{/each}}
+      </div>
       <p class='pull-right text-muted'>Rendered on {{time}}</p>
     </script>
 
@@ -100,6 +105,26 @@
           {{outlet}}
         </div>
       </div>
+    </script>
+
+    <script type='text/x-handlebars' data-template-name='products/onsale'>
+      <h1>On Sale Products</h1>
+      <ul class='unstyled'>
+        {{#each}}
+          <li class='row'>
+            <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5' />
+            <div class="col-sm-7">
+              <h2>{{title}}</h2>
+              <p class="product-description">{{description}}</p>
+              <p>
+                {{#link-to 'product' this class='btn btn-success'}}
+                  Buy for ${{price}}
+                {{/link-to}}
+              </p>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
     </script>
 
     <script type='text/x-handlebars' data-template-name='product'>
