@@ -9,6 +9,7 @@ flintApp.Router.map(function() {
   this.resource('products', {path: '/items'}, function(){
     this.resource('product', {path: '/:product_id'});
     this.route('onsale');
+    this.route('deals');
   });
   this.resource('contacts', function(){
     this.resource('contact', {path: '/:contact_id'});
@@ -49,14 +50,6 @@ flintApp.ContactIndexController = Ember.ObjectController.extend({
   }.property()
 });
 
-flintApp.ProductsIndexController = Ember.ArrayController.extend({
-  deals: function() {
-    return this.filter(function(product) {
-      return (product.get('price') < 250);
-    });
-  }.property('@each.price')
-});
-
 flintApp.IndexRoute = Ember.Route.extend({
   model: function() {
     return this.store.findAll('product');
@@ -84,6 +77,14 @@ flintApp.ProductRoute = Ember.Route.extend({
 flintApp.ProductsOnsaleRoute = Ember.Route.extend({
   model: function() {
     return this.modelFor('products').filterBy('isOnSale');
+  }
+});
+
+flintApp.ProductsDealsRoute = Ember.Route.extend({
+  model: function() {
+    return this.modelFor('products').filter( function(product) {
+      return product.get('price') < 500;
+    });
   }
 });
 

@@ -78,14 +78,20 @@
     </script>
 
     <script type='text/x-handlebars' data-template-name='products/index'>
-      <p class="text-muted">Choose a product from those on the left!</p>
-      {{#each product in deals}}
-        <div class='col-sm-4'>
-          <h2>{{product.title}}</h2>
-          <p>{{product.description}}</p>
-          <p>${{product.price}}</p>
-        </div>
-      {{/each}}
+      <h1>Todays Product Deals!</h1>
+      <ul class='list-unstyled'>
+        {{#each}}
+          <li class="row">
+            <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5' />
+            <div class="col-sm-7">
+              <h2>{{title}}</h2>
+              <p class="product-description">{{description}}</p>
+              <p>{{#link-to 'product' this class='btn btn-success'}}
+                Buy for ${{price}}{{/link-to}}</p>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
     </script>
 
     <script type='text/x-handlebars' data-template-name='products'>
@@ -100,6 +106,15 @@
             {{/each}}
           </div>
         </div>
+        <div class='col-sm-3'>
+          {{#link-to 'products.onsale'}}
+            Product OnSale
+          {{/link-to}}
+          {{#link-to 'products.deals'}}
+            Product Deals
+          {{/link-to}}
+        </div>
+
 
         <div class='col-sm-9'>
           {{outlet}}
@@ -109,6 +124,26 @@
 
     <script type='text/x-handlebars' data-template-name='products/onsale'>
       <h1>On Sale Products</h1>
+      <ul class='unstyled'>
+        {{#each}}
+          <li class='row'>
+            <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5' />
+            <div class="col-sm-7">
+              <h2>{{title}}</h2>
+              <p class="product-description">{{description}}</p>
+              <p>
+                {{#link-to 'product' this class='btn btn-success'}}
+                  Buy for ${{price}}
+                {{/link-to}}
+              </p>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    </script>
+
+    <script type='text/x-handlebars' data-template-name='products/deals'>
+      <h1>Products Deals</h1>
       <ul class='unstyled'>
         {{#each}}
           <li class='row'>
