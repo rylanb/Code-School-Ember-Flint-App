@@ -20,6 +20,9 @@ flintApp.IndexController = Ember.ArrayController.extend({
     return this.get('length')
   }.property('length'),
   logo: '/images/logo.png',
+  onSale: function() {
+    return this.filterBy('isOnSale', true).slice(0,3);
+  }.property('@each.isOnSale'),
   time: function() {
     return (new Date()).toDateString();
   }.property()
@@ -30,8 +33,13 @@ flintApp.ProductsController = Ember.ArrayController.extend({
   sortAscending: true
 });
 
-flintApp.ContactsIndexController = Ember.Controller.extend({
-  contactName: "Rylan",
+flintApp.ContactsController = Ember.ArrayController.extend({
+  sortProperties: ['name'],
+  sortAscending: true
+});
+
+flintApp.ContactIndexController = Ember.ObjectController.extend({
+  contactName: Ember.computed.alias('name'),
   avatar: "/images/avatar.png",
   open: function() {
     var date = (new Date()).getDay()
@@ -61,6 +69,12 @@ flintApp.ProductRoute = Ember.Route.extend({
 flintApp.ContactsRoute = Ember.Route.extend({
   model: function() {
     return this.store.findAll('contact');
+  }
+});
+
+flintApp.ContactRoute = Ember.Route.extend({
+  model: function() {
+    return this.store.find('contact', 200);
   }
 });
 

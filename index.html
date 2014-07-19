@@ -48,6 +48,20 @@
           Browse All {{productCount}} Items &raquo;</p>
         {{/link-to}}
       </div>
+      {{#each onSale}}
+        <div class='col-sm-4'>
+          <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5' />
+          <div class='col-sm-7'>
+            <h2>{{title}}</h2>
+            <p class="product-description">{{description}}</p>
+            <p>
+              {{#link-to 'product' this class='btn btn-success'}}
+                Buy for ${{price}}
+              {{/link-to}}
+            </p>
+          </div>
+        </div>
+      {{/each}}
       <p class='pull-right text-muted'>Rendered on {{time}}</p>
     </script>
 
