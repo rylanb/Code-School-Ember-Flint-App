@@ -74,6 +74,13 @@
 
     <script type='text/x-handlebars' data-template-name='products/index'>
       <p class="text-muted">Choose a product from those on the left!</p>
+      {{#each product in deals}}
+        <div class='col-sm-4'>
+          <h2>{{product.title}}</h2>
+          <p>{{product.description}}</p>
+          <p>${{product.price}}</p>
+        </div>
+      {{/each}}
     </script>
 
     <script type='text/x-handlebars' data-template-name='products'>
