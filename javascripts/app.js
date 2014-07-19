@@ -15,12 +15,19 @@ flintApp.Router.map(function() {
 });
 
 
-flintApp.IndexController = Ember.Controller.extend({
-  productsCount: 6,
+flintApp.IndexController = Ember.ArrayController.extend({
+  productCount: function() {
+    return this.get('length')
+  }.property('length'),
   logo: '/images/logo.png',
   time: function() {
     return (new Date()).toDateString();
   }.property()
+});
+
+flintApp.ProductsController = Ember.ArrayController.extend({
+  sortProperties: ['title'],
+  sortAscending: true
 });
 
 flintApp.ContactsIndexController = Ember.Controller.extend({
@@ -31,6 +38,12 @@ flintApp.ContactsIndexController = Ember.Controller.extend({
     var str = date != 0 ? "The Store is Open!" : "The Store is Closed!"
     return str
   }.property()
+});
+
+flintApp.IndexRoute = Ember.Route.extend({
+  model: function() {
+    return this.store.findAll('product');
+  }
 });
 
 flintApp.ProductsRoute = Ember.Route.extend({
