@@ -43,7 +43,10 @@
           <img {{bind-attr src='logo'}} alt='Logo' />
           Everything you need to make it through the winter.
         </p>
-        <p>Browse All {{productCount}} Items &raquo;</p>
+        <p>
+        {{#link-to 'products'}}
+          Browse All {{productCount}} Items &raquo;</p>
+        {{/link-to}}
       </div>
       <p class='pull-right text-muted'>Rendered on {{time}}</p>
     </script>
@@ -84,11 +87,28 @@
           <h2>{{title}}</h2>
           <h3 class='text-success'>Buy for ${{price}}</h3>
           <p class='text-muted'>{{description}}</p>
+          <h3>Reviews</h3>
+          <ul>
+            {{#each review in reviews}}
+              <li>{{review.text}}</li>
+            {{else}}
+              <li>
+                <p class='text-muted'>
+                  <em>No reviews yet. Be the first to write one!</em>
+                </p>
+              </li>
+            {{/each}}
+          </ul>
+          <h3>Crafter</h3>
+          {{#link-to 'contact' crafter}}
+            {{crafter.name}}
+          {{/link-to}}
         </div>
         <div class='col-md-5'>
           <img {{bind-attr src='image' alt='title'}} class='img-thumbnail img-rounded' />
         </div>
       </div>
+
     </script>
 
     <script type='text/x-handlebars' data-template-name='contacts'>
@@ -115,6 +135,22 @@
       <h2>{{name}}</h2>
       <img {{bind-attr src='avatar' alt='name'}} />
       <p>{{about}}</p>
+      <h3>Products</h3>
+      <ul>
+        {{#each product in products}}
+          <li>
+            {{#link-to 'product' product}}
+              {{product.title}}
+            {{/link-to}}
+          </li>
+        {{else}}
+          <li>
+            <p class='text-muted'>
+              <em>No products created yet!</em>
+            </p>
+          </li>
+        {{/each}}
+      </ul>
     </script>
 
     <script type='text/x-handlebars' data-template-name='credits'>

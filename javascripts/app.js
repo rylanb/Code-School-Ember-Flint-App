@@ -2,14 +2,15 @@ var flintApp = Ember.Application.create({
   LOG_TRANSITIONS: true
 });
 
+flintApp.ApplicationAdapter = DS.FixtureAdapter.extend({});
 
 flintApp.Router.map(function() {
   this.route('credits', {path: '/thanks'});
   this.resource('products', {path: '/items'}, function(){
-    this.resource('product', {path: '/:title'});
+    this.resource('product', {path: '/:product_id'});
   });
   this.resource('contacts', function(){
-    this.resource('contact', {path: '/:name'});
+    this.resource('contact', {path: '/:contact_id'});
   });
 });
 
@@ -34,55 +35,101 @@ flintApp.ContactsIndexController = Ember.Controller.extend({
 
 flintApp.ProductsRoute = Ember.Route.extend({
   model: function() {
-    return flintApp.PRODUCTS;
+    return this.store.findAll('product');
   }
 });
 
 flintApp.ProductRoute = Ember.Route.extend({
   model: function(params) {
-    return flintApp.PRODUCTS.findBy('title', params.title);
+    return this.store.find('product', params.product_id);
   }
 });
 
 flintApp.ContactsRoute = Ember.Route.extend({
   model: function() {
-    return flintApp.CONTACTS;
+    return this.store.findAll('contact');
   }
 });
 
 flintApp.ContactRoute = Ember.Route.extend({
   model: function(params) {
-    return flintApp.CONTACTS.findBy('name', params.name);
+    return this.store.find('contact', params.contact_id);
   }
 });
 
+flintApp.Product = DS.Model.extend({
+  title: DS.attr('string'),
+  price: DS.attr('number'),
+  description: DS.attr('string'),
+  isOnSale: DS.attr('string'),
+  image: DS.attr('string'),
+  reviews: DS.hasMany('review', {async: true}),
+  crafter: DS.belongsTo('contact', {async: true})
+});
 
-flintApp.PRODUCTS = [
-  {
+flintApp.Contact = DS.Model.extend({
+  name: DS.attr('string'),
+  avatar: DS.attr('string'),
+  about: DS.attr('string'),
+  products: DS.hasMany('product', {async: true})
+});
+
+flintApp.Review = DS.Model.extend({
+  text: DS.attr('string'),
+  reviewedAt: DS.attr('string'),
+  product: DS.belongsTo('product')
+});
+
+flintApp.Product.FIXTURES = [
+ {  id: 1,
     title: 'Flint',
     price: 99,
     description: 'Flint is a hard, sedimentary cryptocrystalline form of the mineral quartz, categorized as a variety of chert.',
     isOnSale: true,
-    image: 'images/products/flint.png'
+    image: 'images/products/flint.png',
+    reviews: [100,101],
+    crafter: 200
   },
   {
+    id: 2,
     title: 'Kindling',
     price: 249,
     description: 'Easily combustible small sticks or twigs used for starting a fire.',
     isOnSale: false,
-    image: 'images/products/kindling.png'
+    image: 'images/products/kindling.png',
+    reviews: [],
+    crafter: 201
   }
- ]
+];
 
-flintApp.CONTACTS = [
+
+flintApp.Contact.FIXTURES = [
   {
-     name: "Rylan Bowers",
-     avatar: "images/contacts/giamia.png",
-     about: "This is Rylan"
+    id: 200,
+    name: "Rylan Bowers",
+    avatar: "images/contacts/giamia.png",
+    about: "This is Rylan",
+    products: [1]
   },
   {
-     name: "Nico Valencia",
-     avatar: "images/contacts/anostagia.png",
-     about: "This is Nico"
+    id: 201,
+    name: "Nico Valencia",
+    avatar: "images/contacts/anostagia.png",
+    about: "This is Nico",
+    products: [2]
   }
-]
+];
+
+
+flintApp.Review.FIXTURES = [
+  {
+    id: 100,
+    product: 1,
+    text: "Started a fire quickly!"
+  },
+  {
+    id: 101,
+    product: 1,
+    text: "Not the brightest flame, but warm"
+  }
+];
