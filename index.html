@@ -50,21 +50,7 @@
       </div>
       <div class='row'>
         {{#each onSale}}
-          <div class='col-sm-4'>
-            <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5' />
-            <div class='col-sm-7'>
-              <h2>{{title}}</h2>
-              <span class="label label-warning">
-                {{#link-to 'products.onsale'}}On Sale{{/link-to}}
-              </span>
-              <p class="product-description">{{description}}</p>
-              <p>
-                {{#link-to 'product' this class='btn btn-success'}}
-                  Buy for ${{price}}
-                {{/link-to}}
-              </p>
-            </div>
-          </div>
+          {{product-details product=this classNames='col-sm-4'}}
         {{/each}}
       </div>
       <p class='pull-right text-muted'>Rendered on {{time}}</p>
@@ -81,15 +67,7 @@
       <h1>Todays Product Deals!</h1>
       <ul class='list-unstyled'>
         {{#each}}
-          <li class="row">
-            <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5' />
-            <div class="col-sm-7">
-              <h2>{{title}}</h2>
-              <p class="product-description">{{description}}</p>
-              <p>{{#link-to 'product' this class='btn btn-success'}}
-                Buy for ${{price}}{{/link-to}}</p>
-            </div>
-          </li>
+          {{product-details product=this tagName='li' classNames='row'}}
         {{/each}}
       </ul>
     </script>
@@ -126,18 +104,7 @@
       <h1>On Sale Products</h1>
       <ul class='unstyled'>
         {{#each}}
-          <li class='row'>
-            <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5' />
-            <div class="col-sm-7">
-              <h2>{{title}}</h2>
-              <p class="product-description">{{description}}</p>
-              <p>
-                {{#link-to 'product' this class='btn btn-success'}}
-                  Buy for ${{price}}
-                {{/link-to}}
-              </p>
-            </div>
-          </li>
+          {{product-details product=this tagName='li' classNames='row'}}
         {{/each}}
       </ul>
     </script>
@@ -146,18 +113,7 @@
       <h1>Products Deals</h1>
       <ul class='unstyled'>
         {{#each}}
-          <li class='row'>
-            <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5' />
-            <div class="col-sm-7">
-              <h2>{{title}}</h2>
-              <p class="product-description">{{description}}</p>
-              <p>
-                {{#link-to 'product' this class='btn btn-success'}}
-                  Buy for ${{price}}
-                {{/link-to}}
-              </p>
-            </div>
-          </li>
+          {{product-details product=this tagName='li' classNames='row'}}
         {{/each}}
       </ul>
     </script>
@@ -180,11 +136,9 @@
               </li>
             {{/each}}
           </ul>
-          <h3>Crafter</h3>
-          {{#link-to 'contact' crafter}}
-            {{crafter.name}}
-          {{/link-to}}
+          {{contact-details contact=crafter classNames='row'}}
         </div>
+
         <div class='col-md-5'>
           <img {{bind-attr src='image' alt='title'}} class='img-thumbnail img-rounded' />
         </div>
@@ -213,9 +167,7 @@
     </script>
 
     <script type='text/x-handlebars' data-template-name='contact'>
-      <h2>{{name}}</h2>
-      <img {{bind-attr src='avatar' alt='name'}} />
-      <p>{{about}}</p>
+      {{contact-details contact=this}}
       <h3>Products</h3>
       <ul>
         {{#each product in products}}
@@ -237,6 +189,29 @@
     <script type='text/x-handlebars' data-template-name='credits'>
       <h1>Thanks for the Help!</h1>
       <p>This site would not be possible without the hardworking Ember Core Team!</p>
+    </script>
+
+    <!-- Components -->
+    <script type='text/x-handlebars' data-template-name='components/product-details'>
+      <img {{bind-attr src='product.image'}} class='img-thumbnail col-sm-5' />
+      <div class='col-sm-7'>
+        <h2>{{product.title}}</h2>
+        <span class="label label-warning">
+          {{#link-to 'products.onsale'}}On Sale{{/link-to}}
+        </span>
+        <p class="product-description">{{product.description}}</p>
+        <p>
+          {{#link-to 'product' product class='btn btn-success'}}
+            Buy for ${{product.price}}
+          {{/link-to}}
+        </p>
+      </div>
+    </script>
+
+    <script type='text/x-handlebars' data-template-name='components/contact-details'>
+      <h2>{{contact.name}}</h2>
+      <img {{bind-attr src='contact.avatar' alt='contact.name'}} />
+      <p>{{contact.about}}</p>
     </script>
 
   </body>
