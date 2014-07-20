@@ -126,7 +126,7 @@
           <p class='text-muted'>{{description}}</p>
 
           {{contact-details contact=crafter classNames='row'}}
-          {{partial 'reviews'}}
+          {{render 'reviews' reviews}}
         </div>
 
         <div class='col-md-5'>
@@ -215,11 +215,11 @@
 
 
   <!-- Partials-->
-  <script type='text/x-handlebars' data-template-name='_reviews'>
+  <script type='text/x-handlebars' data-template-name='reviews'>
     <h3>Reviews</h3>
     <ul>
-      {{#each review in reviews}}
-        <li>{{review.text}}</li>
+      {{#each}}
+        <li>{{text}}</li>
       {{else}}
         <li>
           <p class='text-muted'>

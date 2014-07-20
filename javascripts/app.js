@@ -40,6 +40,11 @@ flintApp.ContactsController = Ember.ArrayController.extend({
   sortAscending: true
 });
 
+flintApp.ReviewsController = Ember.ArrayController.extend({
+  sortProperties: ['reviewedAt'],
+  sortAscending: false
+});
+
 flintApp.ContactIndexController = Ember.ObjectController.extend({
   contactName: Ember.computed.alias('name'),
   avatar: "/images/avatar.png",
@@ -50,6 +55,7 @@ flintApp.ContactIndexController = Ember.ObjectController.extend({
   }.property()
 });
 
+//Routes
 flintApp.IndexRoute = Ember.Route.extend({
   model: function() {
     return this.store.findAll('product');
@@ -100,6 +106,7 @@ flintApp.ContactRoute = Ember.Route.extend({
   }
 });
 
+//Models
 flintApp.Product = DS.Model.extend({
   title: DS.attr('string'),
   price: DS.attr('number'),
