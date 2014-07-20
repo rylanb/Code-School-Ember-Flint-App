@@ -136,12 +136,10 @@
                 <p class='text-muted'>{{review.text}}</p>
                 {{/if}}
               {{textarea valueBinding='review.text'}}
+              {{view Ember.Select content=ratings valueBinding=review.rating}}
               <button {{action 'createReview'}} class='btn-primary'>Review</button>
             </div>
           {{/if}}
-
-          {{view Ember.Select content=ratings valueBinding='selectedRating'}}
-          <button {{action 'createRating'}} class='btn-primary'>Rate {{title}}</button>
         </div>
 
         <div class='col-md-5'>

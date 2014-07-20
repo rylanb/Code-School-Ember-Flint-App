@@ -41,8 +41,6 @@ flintApp.ProductController = Ember.ObjectController.extend({
       product: this.get('model')
     });
   }.property('model'),
-  ratings: [1, 2, 3, 4, 5],
-  selectedRating: 5,
   isNotReviewed: Ember.computed.alias('review.isNew'),
   actions: {
     createReview: function() {
@@ -52,13 +50,6 @@ flintApp.ProductController = Ember.ObjectController.extend({
       review.save().then( function(review){
         controller.get('model.reviews').addObject(review);
       } );
-    },
-    createRating: function() {
-      var controller = this;
-      var rating = controller.get('selectedRating');
-      var product = controller.get('model');
-      product.get('ratings').addObject(rating);
-      product.save().then(function(){});
     }
   }
 });
@@ -167,7 +158,8 @@ flintApp.Contact = DS.Model.extend({
 flintApp.Review = DS.Model.extend({
   text: DS.attr('string'),
   reviewedAt: DS.attr('string'),
-  product: DS.belongsTo('product')
+  product: DS.belongsTo('product'),
+  rating: DS.attr('number')
 });
 
 //Views
@@ -209,20 +201,18 @@ flintApp.Contact.FIXTURES = [
   }
 ];
 
-
 flintApp.Review.FIXTURES = [
   {
     id: 100,
-    product: 1,
-    text: "Started a fire quickly!"
+    text: "Started a fire in no time!",
+    rating: 3
   },
   {
     id: 101,
-    product: 1,
-    text: "Not the brightest flame, but warm"
+    text: "Not the brightest flame, but warm!",
+    rating: 4
   }
 ];
-
 
 flintApp.Product.FIXTURES = [
  {  id: 1,
