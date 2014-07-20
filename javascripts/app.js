@@ -123,6 +123,21 @@ flintApp.Review = DS.Model.extend({
   product: DS.belongsTo('product')
 });
 
+//Components
+flintApp.ProductDetailsComponent = Ember.Component.extend({
+  reviewsCount: Ember.computed.alias('product.reviews.length'),
+  hasReviews: function() {
+    return this.get('reviewsCount') > 0;
+  }.property('reviewsCount')
+});
+
+flintApp.ContactDetailsComponent = Ember.Component.extend({
+  productsCount: Ember.computed.alias('contact.products.length'),
+  isProductive: function() {
+    return this.get('contact.products.length') > 3;
+  }.property('productsCount')
+});
+
 flintApp.Contact.FIXTURES = [
   {
     id: 200,
