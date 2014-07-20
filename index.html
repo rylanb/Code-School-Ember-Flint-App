@@ -124,19 +124,9 @@
           <h2>{{title}}</h2>
           <h3 class='text-success'>Buy for ${{price}}</h3>
           <p class='text-muted'>{{description}}</p>
-          <h3>Reviews</h3>
-          <ul>
-            {{#each review in reviews}}
-              <li>{{review.text}}</li>
-            {{else}}
-              <li>
-                <p class='text-muted'>
-                  <em>No reviews yet. Be the first to write one!</em>
-                </p>
-              </li>
-            {{/each}}
-          </ul>
+
           {{contact-details contact=crafter classNames='row'}}
+          {{partial 'reviews'}}
         </div>
 
         <div class='col-md-5'>
@@ -222,6 +212,23 @@
         <img {{bind-attr src='contact.avatar' alt='contact.name'}} class='img-thumbnail img-rounded'/>
       </div>
     </script>
+
+
+  <!-- Partials-->
+  <script type='text/x-handlebars' data-template-name='_reviews'>
+    <h3>Reviews</h3>
+    <ul>
+      {{#each review in reviews}}
+        <li>{{review.text}}</li>
+      {{else}}
+        <li>
+          <p class='text-muted'>
+            <em>No reviews yet. Be the first to write one!</em>
+          </p>
+        </li>
+      {{/each}}
+    </ul>
+  </script>
 
   </body>
 </html>
