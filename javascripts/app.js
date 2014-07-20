@@ -169,6 +169,15 @@ flintApp.ProductView = Ember.View.extend({
   isOnSale: Ember.computed.alias('controller.isOnSale')
 });
 
+flintApp.ReviewView = Ember.View.extend({
+  isExpanded: false,
+  classNameBindings: ['isExpanded', 'readMore'],
+  click: function() {
+    this.toggleProperty('isExpanded');
+  },
+  readMore: Ember.computed.gt('length', 140)
+});
+
 //Components
 flintApp.ProductDetailsComponent = Ember.Component.extend({
   reviewsCount: Ember.computed.alias('product.reviews.length'),
@@ -184,6 +193,12 @@ flintApp.ContactDetailsComponent = Ember.Component.extend({
   }.property('productsCount')
 });
 
+//Helpers
+Ember.Handlebars.registerBoundHelper('markdown', function(text){
+  return new Handlebars.SafeString(markdown.toHTML(text));
+});
+
+//Fixtures
 flintApp.Contact.FIXTURES = [
   {
     id: 200,

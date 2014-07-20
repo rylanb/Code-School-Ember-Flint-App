@@ -217,7 +217,12 @@
     <h3>Reviews</h3>
     <ul>
       {{#each}}
-        <li>{{text}}</li>
+        {{#view 'flintApp.ReviewView' tag='li' length=text.length}}
+          <div class='content'>{{markdown review.text}}</div>
+          <span class='expand text-success'>
+            Read {{#if view.isExpanded}}Less{{else}}More{{/if}}
+          </span>
+        {{/view}}
       {{else}}
         <li>
           <p class='text-muted'>
