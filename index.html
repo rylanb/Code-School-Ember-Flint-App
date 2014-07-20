@@ -158,22 +158,7 @@
 
     <script type='text/x-handlebars' data-template-name='contact'>
       {{contact-details contact=this}}
-      <h3>Products</h3>
-      <ul>
-        {{#each product in products}}
-          <li>
-            {{#link-to 'product' product}}
-              {{product.title}}
-            {{/link-to}}
-          </li>
-        {{else}}
-          <li>
-            <p class='text-muted'>
-              <em>No products created yet!</em>
-            </p>
-          </li>
-        {{/each}}
-      </ul>
+      {{render 'contact/products' products}}
     </script>
 
     <script type='text/x-handlebars' data-template-name='credits'>
@@ -214,7 +199,7 @@
     </script>
 
 
-  <!-- Partials-->
+  <!-- Partials / Renders templates-->
   <script type='text/x-handlebars' data-template-name='reviews'>
     <h3>Reviews</h3>
     <ul>
@@ -226,6 +211,15 @@
             <em>No reviews yet. Be the first to write one!</em>
           </p>
         </li>
+      {{/each}}
+    </ul>
+  </script>
+
+  <script type='text/x-handlebars' data-template-name='contact/products'>
+    <h3>Products</h3>
+    <ul>
+      {{#each}}
+      <li>{{#link-to 'product' this}}{{title}}{{/link-to}}</li>
       {{/each}}
     </ul>
   </script>

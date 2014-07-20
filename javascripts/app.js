@@ -45,6 +45,11 @@ flintApp.ReviewsController = Ember.ArrayController.extend({
   sortAscending: false
 });
 
+flintApp.ContactProductsController = Ember.ArrayController.extend({
+  sortProperties: ['title'],
+  sortAscending: true
+});
+
 flintApp.ContactIndexController = Ember.ObjectController.extend({
   contactName: Ember.computed.alias('name'),
   avatar: "/images/avatar.png",
