@@ -123,6 +123,13 @@ flintApp.Review = DS.Model.extend({
   product: DS.belongsTo('product')
 });
 
+//Views
+flintApp.ProductView = Ember.View.extend({
+  classNames: ['row'],
+  classNameBindings: ['isOnSale'],
+  isOnSale: Ember.computed.alias('controller.isOnSale')
+});
+
 //Components
 flintApp.ProductDetailsComponent = Ember.Component.extend({
   reviewsCount: Ember.computed.alias('product.reviews.length'),
