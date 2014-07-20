@@ -46,7 +46,7 @@ flintApp.ProductController = Ember.ObjectController.extend({
       });
       var controller = this;
       review.save().then( function(review){
-        controller.set = ('text', '');
+        controller.set('text', '');
         controller.get('model.reviews').addObject(review);
       } );
     }
