@@ -36,19 +36,20 @@ flintApp.ProductsController = Ember.ArrayController.extend({
 });
 
 flintApp.ProductController = Ember.ObjectController.extend({
-  text: '',
+  review: function() {
+    return this.store.createRecord('review', {
+      product: this.get('model')
+    });
+  }.property('model'),
   ratings: [1, 2, 3, 4, 5],
   selectedRating: 5,
+  isNotReviewed: Ember.computed.alias('review.isNew'),
   actions: {
     createReview: function() {
-      var review = this.store.createRecord('review', {
-        text: this.get('text'),
-        product: this.get('model'),
-        reviewedAt: new Date()
-      });
       var controller = this;
+      var review = controller.get('review');
+      review.set('reviewedAt', new Date());
       review.save().then( function(review){
-        controller.set('text', '');
         controller.get('model.reviews').addObject(review);
       } );
     },

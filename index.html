@@ -129,14 +129,17 @@
           {{contact-details contact=crafter classNames='row'}}
           {{render 'reviews' reviews}}
 
-          <div class='new-review'>
-            <h3>Review {{title}}</h3>
-            {{#if text}}
-              <p class='text-muted'>{{text}}</p>
-              {{/if}}
-            {{textarea valueBinding='text'}}
-            <button {{action 'createReview'}} class='btn-primary'>Review</button>
-          </div>
+          {{#if isNotReviewed}}
+            <div class='new-review'>
+              <h3>Review {{review.title}}</h3>
+              {{#if review.text}}
+                <p class='text-muted'>{{review.text}}</p>
+                {{/if}}
+              {{textarea valueBinding='review.text'}}
+              <button {{action 'createReview'}} class='btn-primary'>Review</button>
+            </div>
+          {{/if}}
+
           {{view Ember.Select content=ratings valueBinding='selectedRating'}}
           <button {{action 'createRating'}} class='btn-primary'>Rate {{title}}</button>
         </div>
