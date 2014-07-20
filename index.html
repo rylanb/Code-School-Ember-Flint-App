@@ -127,6 +127,15 @@
 
           {{contact-details contact=crafter classNames='row'}}
           {{render 'reviews' reviews}}
+
+          <div class='new-review'>
+            <h3>Review {{title}}</h3>
+            {{#if text}}
+              <p class='text-muted'>{{text}}</p>
+              {{/if}}
+            {{textarea valueBinding='text'}}
+            <button {{action 'createReview'}} class='btn-primary'>Review</button>
+          </div>
         </div>
 
         <div class='col-md-5'>
@@ -171,7 +180,7 @@
       <img {{bind-attr src='product.image'}} class='img-thumbnail col-sm-5' />
       <div class='col-sm-7'>
         <h2>{{product.title}}</h2>
-        <span class="label label-warning">
+        <span class='label label-warning'>
           {{#link-to 'products.onsale'}}On Sale{{/link-to}}
         </span>
         <p class="product-description">{{product.description}}</p>

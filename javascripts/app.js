@@ -35,6 +35,25 @@ flintApp.ProductsController = Ember.ArrayController.extend({
   sortAscending: true
 });
 
+flintApp.ProductController = Ember.ObjectController.extend({
+  text: '',
+  actions: {
+    createReview: function() {
+      var review = this.store.createRecord('review', {
+        text: this.get('text'),
+        product: this.get('model'),
+        reviewedAt: new Date()
+      });
+      var controller = this;
+      review.save().then( function(review){
+        controller.set = ('text', '');
+        controller.get('model.reviews').addObject(review);
+      } );
+    }
+  }
+});
+
+
 flintApp.ContactsController = Ember.ArrayController.extend({
   sortProperties: ['name'],
   sortAscending: true
