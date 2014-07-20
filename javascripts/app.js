@@ -123,6 +123,38 @@ flintApp.Review = DS.Model.extend({
   product: DS.belongsTo('product')
 });
 
+flintApp.Contact.FIXTURES = [
+  {
+    id: 200,
+    name: "Rylan Bowers",
+    avatar: "images/contacts/giamia.png",
+    about: "This is Rylan",
+    products: [1]
+  },
+  {
+    id: 201,
+    name: "Nico Valencia",
+    avatar: "images/contacts/anostagia.png",
+    about: "This is Nico",
+    products: [2]
+  }
+];
+
+
+flintApp.Review.FIXTURES = [
+  {
+    id: 100,
+    product: 1,
+    text: "Started a fire quickly!"
+  },
+  {
+    id: 101,
+    product: 1,
+    text: "Not the brightest flame, but warm"
+  }
+];
+
+
 flintApp.Product.FIXTURES = [
  {  id: 1,
     title: 'Flint',
@@ -182,37 +214,5 @@ flintApp.Product.FIXTURES = [
     reviews: [],
     image: 'images/products/birch.png',
     crafter: 200
-  }
-];
-
-
-flintApp.Contact.FIXTURES = [
-  {
-    id: 200,
-    name: "Rylan Bowers",
-    avatar: "images/contacts/giamia.png",
-    about: "This is Rylan",
-    products: [1]
-  },
-  {
-    id: 201,
-    name: "Nico Valencia",
-    avatar: "images/contacts/anostagia.png",
-    about: "This is Nico",
-    products: [2]
-  }
-];
-
-
-flintApp.Review.FIXTURES = [
-  {
-    id: 100,
-    product: 1,
-    text: "Started a fire quickly!"
-  },
-  {
-    id: 101,
-    product: 1,
-    text: "Not the brightest flame, but warm"
   }
 ];
