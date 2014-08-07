@@ -14,8 +14,15 @@ flintApp.Router.map(function() {
   this.resource('contacts', function(){
     this.resource('contact', {path: '/:contact_id'});
   });
+  this.route('missing', {path: '/*path'});
 });
 
+flintApp.MissingRoute = Ember.Route.extend({
+  redirect: function() {
+    Ember.Logger.warn("No Route for given URL found.");
+    this.transitionTo("missing");
+  }
+});
 
 flintApp.IndexController = Ember.ArrayController.extend({
   productCount: function() {
